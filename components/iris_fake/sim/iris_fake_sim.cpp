@@ -1,11 +1,12 @@
 #include <sim_i_hardware_model.hpp>
+#include <boost/asio.hpp>
 #include <fcntl.h>
 #include <unistd.h>
 
 namespace Nos3
 {
-// The launcher initializes GPIO1 low and shares its directory with cFS.
-// No SPI, radio link, or dynamics provider is needed for this toy model.
+// Python owns the pin state. This adapter forwards NOS3 commands to Python
+// and reflects its response into the GPIO file shared with cFS.
 class IrisFake : public SimIHardwareModel
 {
 public:
@@ -16,15 +17,24 @@ public:
     {
         NosEngine::Common::DataBufferOverlay data(
             const_cast<NosEngine::Utility::Buffer&>(msg.buffer));
-        const std::string command = data.data;
-        std::string reply = "Expected GPO1=0 or GPO1=1";
-        if (command == "GPO1=0" || command == "GPO1=1")
+        boost::asio::io_service io;
+        boost::asio::ip::tcp::socket socket(io);
+        socket.connect({boost::asio::ip::address::from_string("127.0.0.1"), 12021});
+        const std::string request = std::string(data.data) + "\n";
+        boost::asio::write(socket, boost::asio::buffer(request));
+
+        boost::asio::streambuf response;
+        boost::asio::read_until(socket, response, '\n');
+        std::istream input(&response);
+        std::string reply;
+        std::getline(input, reply);
+        if (reply == "0" || reply == "1")
         {
             // Overwrite one byte without truncating: readers always see a level.
             int fd = open("/tmp/gpio-fake/gpio1/value", O_WRONLY);
             if (fd >= 0)
             {
-                reply = write(fd, &command.back(), 1) == 1 ? "OK" : "GPIO write failed";
+                reply = write(fd, reply.data(), 1) == 1 ? "OK" : "GPIO write failed";
                 close(fd);
             }
             else

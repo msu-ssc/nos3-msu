@@ -8,11 +8,15 @@ commands and telemetry. This second, fake radio only drives CDH GPIO1.
 1. `gsw/IRIS_FAKE_SIM_CMD.txt`: COSMOS sends `GPO1=0` or `GPO1=1` to
    `iris-fake-command` through SIM_CMDBUS_BRIDGE. These are simulator commands,
    not flight commands.
-2. `sim/iris_fake_sim.cpp`: the NOS3 command callback overwrites one ASCII byte
-   in `/tmp/gpio-fake/gpio1/value`. There is no SPI or dynamics provider.
+2. `sim/iris_fake_sim.cpp`: the NOS3 command callback forwards the command to
+   `sim/iris_fake.py` over localhost TCP port 12021. Python owns GPO1's state
+   and replies with its level. C++ reflects that level by overwriting one ASCII
+   byte in `/tmp/gpio-fake/gpio1/value`. There is no SPI or dynamics provider.
 3. `scripts/fsw/fsw_cfs_launch.sh`: creates that file initially low and mounts
    the same spacecraft-specific directory into the simulator and flight
-   containers. The app treats GPIO1 as an input; only the simulator drives it.
+   containers. It starts Python, which opens its listening socket before
+   launching the C++ adapter as a child process in the same container.
+   The app treats GPIO1 as an input; only the simulator drives it.
 4. `fsw/cfs/src/iris_fake_app.c`: reads GPIO1 on each 10 Hz scheduler request.
    The first valid sample establishes a baseline. Each subsequent change
    increments the counter and emits event 1. Repeated levels do not count.
@@ -29,6 +33,13 @@ and unused schedule slots implement 10 Hz polling and 1 Hz housekeeping.
 The app is always included in the default cFS/COSMOS configuration for this
 exercise; there is no new GUI enable option. Alternate launchers/ground systems
 are outside this example.
+
+The private Python/C++ protocol is deliberately small: one connection per
+command, with a newline-terminated `GPO1=0` or `GPO1=1` request and a
+newline-terminated `0` or `1` response. Python prints each successful drive in
+the Iris simulator terminal, including repeated levels. C++ waits for the reply
+in its command callback. There are no reconnects, timeouts, unsolicited output
+updates, or simulation-time synchronization in this learning example.
 
 ## Build and try it
 

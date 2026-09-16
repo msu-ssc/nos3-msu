@@ -124,7 +124,7 @@ do
     $DNETWORK connect $SC_NETNAME nos-udp-terminal
     $DNETWORK connect $SC_NETNAME nos-sim-bridge
 
-    gnome-terminal --tab --title="$SC_NUM - Iris Fake Sim" -- $DFLAGS -v $SIM_DIR:$SIM_DIR -v "$IRIS_GPIO_DIR:/tmp/gpio-fake" --name "$SC_NUM-iris-fake-sim" --network=$SC_NETNAME -w $SIM_BIN $DBOX ./nos3-single-simulator $SC_CFG_FILE iris-fake-sim
+    gnome-terminal --tab --title="$SC_NUM - Iris Fake Sim" -- $DFLAGS -v $SIM_DIR:$SIM_DIR -v "$IRIS_GPIO_DIR:/tmp/gpio-fake" --name "$SC_NUM-iris-fake-sim" --network=$SC_NETNAME -w $SIM_BIN $DBOX python3 iris_fake.py ./nos3-single-simulator $SC_CFG_FILE iris-fake-sim
 
     # Component simulators
     gnome-terminal --tab --title=$SC_NUM" - CAM Sim"      -- $DFLAGS -v $SIM_DIR:$SIM_DIR --name $SC_NUM"-cam-sim"      --network=$SC_NETNAME -w $SIM_BIN $DBOX ./nos3-single-simulator $SC_CFG_FILE camsim
