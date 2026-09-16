@@ -13,7 +13,7 @@ $DCALL image pull ballaerospace/cosmos:4.5.0
 mkdir $GSW_DIR/COMPONENTS 2> /dev/null
 rm -r $GSW_DIR/COMPONENTS/* 2> /dev/null
 cp -r $GSW_DIR/config/targets/SIM_CMDBUS_BRIDGE $GSW_DIR/COMPONENTS/
-# Use sample_radio's definitions, excluding the retained upstream radio.
+# Use iris_radio's definitions, excluding the retained upstream radio.
 for i in $(find "$BASE_DIR/components/" -path "$BASE_DIR/components/generic_radio" -prune -o -name "gsw" -type d -print)
 do
     #echo "$i"

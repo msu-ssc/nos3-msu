@@ -102,10 +102,6 @@
 	path = components/generic_torquer
 	url = https://github.com/nasa-itc/generic_torquer.git
 	branch = main
-[submodule "components/generic_radio"]
-	path = components/generic_radio
-	url = https://github.com/nasa-itc/generic_radio.git
-	branch = main
 [submodule "components/generic_imu"]
 	path = components/generic_imu
 	url = https://github.com/nasa-itc/generic_imu.git
@@ -163,7 +159,7 @@
 	path = gsw/yamcs
 	url = https://github.com/nasa-itc/nos3_yamcs_master.git
 	branch = nos3-dev
-[submodule "components/sample_radio"]
-	path = components/sample_radio
+[submodule "components/iris_radio"]
+	path = components/iris_radio
 	url = https://github.com/msu-ssc/generic_radio.git
 	branch = main

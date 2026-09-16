@@ -146,7 +146,7 @@ mdb:
       file: ${env.COMPONENT_DIR}/generic_mag/gsw/generic_mag.xtce
   - type: xtce
     args:
-      file: ${env.COMPONENT_DIR}/sample_radio/gsw/generic_radio.xtce
+      file: ${env.COMPONENT_DIR}/iris_radio/gsw/generic_radio.xtce
   - type: xtce
     args:
       file: ${env.COMPONENT_DIR}/generic_reaction_wheel/gsw/generic_reaction_wheel.xtce

@@ -114,7 +114,7 @@ list(APPEND MISSION_GLOBAL_APPLIST
         generic_imu/fsw/cfs
         generic_mag/fsw/cfs
         generic_reaction_wheel/fsw/cfs
-        sample_radio/fsw/cfs # remember haleigh this is the new radio thing
+        iris_radio/fsw/cfs # remember haleigh this is the new radio thing
         generic_star_tracker/fsw/cfs
         generic_thruster/fsw/cfs
         generic_torquer/fsw/cfs
