@@ -40,8 +40,9 @@ add_subdirectory(truth_42_sim)
 # Add Component Sims
 FILE(GLOB _ALL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../components/*)
 FOREACH(_FILE ${_ALL_FILES})
-  IF(EXISTS ${_FILE}/sim/CMakeLists.txt)
-    get_filename_component(SIM_NAME ${_FILE} NAME)
+  get_filename_component(SIM_NAME ${_FILE} NAME)
+  # sample_radio supplies the radio simulator; keep the upstream copy unused.
+  IF(NOT SIM_NAME STREQUAL "generic_radio" AND EXISTS ${_FILE}/sim/CMakeLists.txt)
     add_subdirectory(${_FILE}/sim ./${SIM_NAME})
   ENDIF()
 ENDFOREACH()

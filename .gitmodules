@@ -163,6 +163,7 @@
 	path = gsw/yamcs
 	url = https://github.com/nasa-itc/nos3_yamcs_master.git
 	branch = nos3-dev
-[submodule "/home/haleigh/dev/nos3/components/sample_radio"]
-	path = /home/haleigh/dev/nos3/components/sample_radio
-	url = https://github.com/msu-ssc/generic_radio
+[submodule "components/sample_radio"]
+	path = components/sample_radio
+	url = https://github.com/msu-ssc/generic_radio.git
+	branch = main

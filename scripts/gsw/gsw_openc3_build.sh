@@ -70,7 +70,8 @@ fi
 mkdir openc3-cosmos-nos3/targets
 cd openc3-cosmos-nos3/targets
 targets=""
-for i in $(find $BASE_DIR/components -name target.txt) 
+# Use sample_radio's definitions, excluding the retained upstream radio.
+for i in $(find "$BASE_DIR/components" -path "$BASE_DIR/components/generic_radio" -prune -o -name target.txt -print)
 do 
     j=$(dirname $i)
     cp -r $j .
