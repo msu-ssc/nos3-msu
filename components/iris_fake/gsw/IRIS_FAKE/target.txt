@@ -1,0 +1,1 @@
+# IRIS_FAKE has telemetry only; pin commands belong to SIM_CMDBUS_BRIDGE.

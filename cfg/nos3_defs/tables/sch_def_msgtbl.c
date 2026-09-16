@@ -61,6 +61,7 @@
 #include "mgr_msgids.h"
 #include "novatel_oem615_msgids.h"
 #include "sample_msgids.h"
+#include "iris_fake_msgids.h"
 #include "syn_msgids.h"
 
 /*
@@ -359,10 +360,10 @@ SCH_MessageEntry_t SCH_DefaultMessageTable[SCH_MAX_MESSAGES] =
     /* command ID #119 */
   { { CFE_MAKE_BIG16(SCH_UNUSED_MID) } },
   
-    /* command ID #120 */
-  { { CFE_MAKE_BIG16(SCH_UNUSED_MID) } },
-    /* command ID #121 */
-  { { CFE_MAKE_BIG16(SCH_UNUSED_MID) } },
+    /* command ID #120 - IRIS_FAKE_POLL_MID */
+  { { CFE_MAKE_BIG16(IRIS_FAKE_POLL_MID), CFE_MAKE_BIG16(0xC000), CFE_MAKE_BIG16(0x0001), CFE_MAKE_BIG16(0x0000) } },
+    /* command ID #121 - IRIS_FAKE_SEND_HK_MID */
+  { { CFE_MAKE_BIG16(IRIS_FAKE_SEND_HK_MID), CFE_MAKE_BIG16(0xC000), CFE_MAKE_BIG16(0x0001), CFE_MAKE_BIG16(0x0000) } },
     /* command ID #122 */
   { { CFE_MAKE_BIG16(SCH_UNUSED_MID) } },
     /* command ID #123 */

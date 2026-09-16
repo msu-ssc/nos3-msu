@@ -62,6 +62,7 @@
 #include "generic_thruster_msgids.h"
 #include "novatel_oem615_msgids.h"
 #include "sample_msgids.h"
+#include "iris_fake_msgids.h"
 #include "generic_adcs_msgids.h"
 #include "generic_star_tracker_msgids.h"
 #include "mgr_msgids.h"
@@ -124,6 +125,7 @@ TO_LAB_Subs_t TO_LAB_Subs =
 	    {CFE_SB_MSGID_WRAP_VALUE(GENERIC_TORQUER_HK_TLM_MID),   {0,0},  32},
         {CFE_SB_MSGID_WRAP_VALUE(NOVATEL_OEM615_HK_TLM_MID),    {0,0},  32},
         {CFE_SB_MSGID_WRAP_VALUE(NOVATEL_OEM615_DEVICE_TLM_MID),{0,0},  32},
+        {CFE_SB_MSGID_WRAP_VALUE(IRIS_HK_TLM_MID),            {0,0},  32},
         {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_HK_TLM_MID),            {0,0},  32},
         {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_DEVICE_TLM_MID),        {0,0},  32},
         {CFE_SB_MSGID_WRAP_VALUE(GENERIC_ADCS_HK_TLM_MID),      {0,0},  32},

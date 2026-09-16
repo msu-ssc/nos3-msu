@@ -1,0 +1,8 @@
+project(iris_fake_sim)
+find_package(ITC_Common REQUIRED QUIET COMPONENTS itc_logger)
+find_package(NOSENGINE REQUIRED QUIET COMPONENTS common transport client)
+include_directories(${sim_common_SOURCE_DIR}/inc ${ITC_Common_INCLUDE_DIRS} ${NOSENGINE_INCLUDE_DIRS})
+add_library(iris_fake_sim SHARED iris_fake_sim.cpp)
+target_link_libraries(iris_fake_sim sim_common ${ITC_Common_LIBRARIES} ${NOSENGINE_LIBRARIES})
+set_target_properties(iris_fake_sim PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+install(TARGETS iris_fake_sim LIBRARY DESTINATION lib)

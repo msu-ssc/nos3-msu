@@ -74,6 +74,7 @@ extern "C" {
 #include "generic_torquer_msgids.h"
 #include "novatel_oem615_msgids.h"
 #include "sample_msgids.h"
+#include "iris_fake_msgids.h"
 #include "generic_adcs_msgids.h"
 #include "generic_star_tracker_msgids.h"
 #include "mgr_msgids.h"
@@ -169,7 +170,7 @@ TO_ConfigTable_t to_ConfigTable =
        {CFE_SB_MSGID_WRAP_VALUE(SBN_HKPEER_TLM_MID),     {0,0}, 32, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
        {CFE_SB_MSGID_WRAP_VALUE(SBN_HKPEERSUBS_TLM_MID), {0,0}, 32, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
        {CFE_SB_MSGID_WRAP_VALUE(SBN_HKMYSUBS_TLM_MID),   {0,0}, 32, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-       {CFE_SB_MSGID_WRAP_VALUE(TO_UNUSED_ENTRY),              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
+       {CFE_SB_MSGID_WRAP_VALUE(IRIS_HK_TLM_MID),            {0,0},  32,  0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
        {CFE_SB_MSGID_WRAP_VALUE(TO_UNUSED_ENTRY),              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
        {CFE_SB_MSGID_WRAP_VALUE(TO_UNUSED_ENTRY),              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
        {CFE_SB_MSGID_WRAP_VALUE(TO_UNUSED_ENTRY),              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},

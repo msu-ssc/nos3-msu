@@ -130,6 +130,23 @@
         <!-- Component Simulators -->
         <!--                      -->
 
+        <!-- Toy second radio: only GPO1, driven by simulator commands. -->
+        <simulator>
+            <name>iris-fake-sim</name>
+            <active>true</active>
+            <library>libiris_fake_sim.so</library>
+            <hardware-model>
+                <type>IRIS_FAKE</type>
+                <connections>
+                    <connection>
+                        <type>command</type>
+                        <bus-name>command</bus-name>
+                        <node-name>iris-fake-command</node-name>
+                    </connection>
+                </connections>
+            </hardware-model>
+        </simulator>
+
         <simulator>
             <name>sample-sim</name>
             <active>true</active>

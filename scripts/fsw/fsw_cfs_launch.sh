@@ -102,11 +102,16 @@ do
     gnome-terminal --tab --title=$SC_NUM" - OnAIR" -- $DFLAGS -v $BASE_DIR:$BASE_DIR --name $SC_NUM"-onair" --network=$SC_NETNAME -w $FSW_DIR -t $DBOX $SCRIPT_DIR/fsw/onair_launch.sh
     echo ""
 
+    # One GPIO directory per spacecraft, shared by cFS and the toy Iris model.
+    IRIS_GPIO_DIR=/tmp/nos3/$SC_NUM/gpio-fake
+    mkdir -p "$IRIS_GPIO_DIR/gpio1"
+    printf '0' > "$IRIS_GPIO_DIR/gpio1/value"
+
     echo $SC_NUM " - Flight Software..."
     cd $FSW_DIR
     # Debugging
     # Replace `--tab` with `--window-with-profile=KeepOpen` once you've created this gnome-terminal profile manually
-    gnome-terminal --title=$SC_NUM" - NOS3 Flight Software" -- $DFLAGS -v $BASE_DIR:$BASE_DIR --name $SC_NUM"-nos-fsw" -h nos-fsw --network=$SC_NETNAME -w $FSW_DIR --sysctl fs.mqueue.msg_max=10000 --ulimit rtprio=99 --cap-add=sys_nice $DBOX $SCRIPT_DIR/fsw/fsw_respawn.sh &
+    gnome-terminal --title=$SC_NUM" - NOS3 Flight Software" -- $DFLAGS -v $BASE_DIR:$BASE_DIR -v "$IRIS_GPIO_DIR:/tmp/gpio-fake" --name $SC_NUM"-nos-fsw" -h nos-fsw --network=$SC_NETNAME -w $FSW_DIR --sysctl fs.mqueue.msg_max=10000 --ulimit rtprio=99 --cap-add=sys_nice $DBOX $SCRIPT_DIR/fsw/fsw_respawn.sh &
     #gnome-terminal --window-with-profile=KeepOpen --title=$SC_NUM" - NOS3 Flight Software" -- $DFLAGS -v $BASE_DIR:$BASE_DIR --name $SC_NUM"-nos-fsw" -h nos-fsw --network=$SC_NETNAME -w $FSW_DIR --sysctl fs.mqueue.msg_max=10000 --ulimit rtprio=99 --cap-add=sys_nice $DBOX $FSW_DIR/core-cpu1 -R PO &
     echo ""
 
@@ -118,6 +123,8 @@ do
     $DNETWORK connect $SC_NETNAME nos-terminal
     $DNETWORK connect $SC_NETNAME nos-udp-terminal
     $DNETWORK connect $SC_NETNAME nos-sim-bridge
+
+    gnome-terminal --tab --title="$SC_NUM - Iris Fake Sim" -- $DFLAGS -v $SIM_DIR:$SIM_DIR -v "$IRIS_GPIO_DIR:/tmp/gpio-fake" --name "$SC_NUM-iris-fake-sim" --network=$SC_NETNAME -w $SIM_BIN $DBOX ./nos3-single-simulator $SC_CFG_FILE iris-fake-sim
 
     # Component simulators
     gnome-terminal --tab --title=$SC_NUM" - CAM Sim"      -- $DFLAGS -v $SIM_DIR:$SIM_DIR --name $SC_NUM"-cam-sim"      --network=$SC_NETNAME -w $SIM_BIN $DBOX ./nos3-single-simulator $SC_CFG_FILE camsim

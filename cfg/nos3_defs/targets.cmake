@@ -121,6 +121,7 @@ list(APPEND MISSION_GLOBAL_APPLIST
         mgr/fsw/cfs
         novatel_oem615/fsw/cfs
         onair
+        iris_fake/fsw/cfs
         sample/fsw/cfs
         syn/fsw/cfs
 )
